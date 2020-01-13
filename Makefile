@@ -1,2 +1,3 @@
-include ../gd32vf103inator/Makefile
+include gd32vf103inator/Makefile
+
 libs += stdio-usbacm
