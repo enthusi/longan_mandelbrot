@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2019, Emil Renner Berthing
+ * Copyright (c) 2019,2020, Martin Wendt
  *
  * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
@@ -61,8 +62,9 @@ void MTIMER_IRQHandler(void)
 
 
 //==============================================================================
-//code below by Martin Wendt, all else part of gd32vf103inator
-// exceot for minor additions to display.c/.h -> dp_imagefill565()
+// code below by Martin Wendt, all else part of gd32vf103inator
+// except for minor additions to display.c/.h -> dp_imagefill565()
+
 #define FIXSIZE 13
 #define mul(a,b) ((((int)a)*(b))>>FIXSIZE)
 #define fixpt(a) ((int)(((a)*(1<<FIXSIZE))))
@@ -96,8 +98,8 @@ for (z=0;z<200;z++)
     ys=(ymax-ymin)/SCREEN_HEIGHT;
    
     for (y=0;y<SCREEN_HEIGHT;y++) {
-    q=(int)(fixpt(ymin+y*ys));
-    for (x=0;x<SCREEN_WIDTH;x++) {                        
+      q=(int)(fixpt(ymin+y*ys));
+      for (x=0;x<SCREEN_WIDTH;x++) {                        
         p=(int)(fixpt(xmin+x*xs));
         
             xn=0;
@@ -109,20 +111,15 @@ for (z=0;z<200;z++)
                 xn=mul((x0+y0),(x0-y0)) +p;           
                 y0=mul(fixpt(2),mul(x0,y0)) +q;
                 x0=xn;
-                }
-            
+            }
             if (i==maxiter) i=1;
             {
                 linebuf.buf[y*160*2+x*2]=i;
                 linebuf.buf[y*160*2+x*2+1]=i*2;
-      
             }  
         }
-    
-    
-    }
+      }
     dp_imagefill565(&linebuf);
-    
 }
 } 
 }
@@ -142,8 +139,7 @@ int main(void)
 
 	{
 		uint64_t next = mtimer_mtime() + BLINK;
-
-		MTIMER->mtimecmp_hi = next >> 32;
+        MTIMER->mtimecmp_hi = next >> 32;
 		MTIMER->mtimecmp_lo = next;
 
 	}
