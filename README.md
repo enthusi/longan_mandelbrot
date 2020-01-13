@@ -7,6 +7,17 @@ of the Longan Nano board. It relies on the setup and environment of [gd32vf103in
 
 mandelfp() Code: Martin Wendt
 
+## Compiling
+
+Get a RISC-V toolchain as explained in the [gd32vf103inator] readme, and do
+
+```sh
+git clone https://github.com/enthusi/longan_mandelbrot.git
+cd longan_mandelbrot
+git submodule init
+git submodule update
+make
+```
 
 ## License
 

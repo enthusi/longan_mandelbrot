@@ -1,0 +1,3 @@
+[submodule "gd32vf103inator"]
+	path = gd32vf103inator
+	url = https://github.com/esmil/gd32vf103inator.git
