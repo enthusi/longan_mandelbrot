@@ -520,22 +520,17 @@ dp_fill666(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsig
 	dp_cs_disable();
 }
 
-void dp_imagefill565(const struct linebuf *linebuffer)
+void dp_imagefill565(const uint8_t image[2*160*80])
 {
-    int i;
-	int j;
-    dp_cs_enable();
-    dp__mode565();
-	dp__setbox(0, 160,0, 80);
-    for (j = 0; j<80; j++) {
-	  for (i = 0; i<160; i++) {
-		dp__write(linebuffer->buf[j*160*2+i*2]);
-		dp__write(linebuffer->buf[j*160*2+i*2+1]);
-	}
-    }
-	dp_cs_disable();
-}
+        unsigned int i;
 
+        dp_cs_enable();
+        dp__mode565();
+        dp__setbox(0, 160, 0, 80);
+        for (i = 0; i < 160*80*2; i++)
+                dp__write(image[i]);
+        dp_cs_disable();
+}
 
 void
 dp_putchar(const struct dp_font *font,

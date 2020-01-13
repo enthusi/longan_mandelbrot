@@ -70,6 +70,7 @@ void MTIMER_IRQHandler(void)
 #define fixpt(a) ((int)(((a)*(1<<FIXSIZE))))
 #define SCREEN_WIDTH   160
 #define SCREEN_HEIGHT  80
+__attribute__((noinline))
 void mandelfp()
 {
 float xmin=-2.5,ymin=-1.5,xmax=1.5,ymax=1.5,xs,ys;
@@ -119,7 +120,7 @@ for (z=0;z<200;z++)
             }  
         }
       }
-    dp_imagefill565(&linebuf);
+    dp_imagefill565(linebuf.buf);
 }
 } 
 }

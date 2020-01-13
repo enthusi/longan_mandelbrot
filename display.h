@@ -77,7 +77,9 @@ struct linebuf
 	uint8_t buf[320*80];
 };
 
-void dp_imagefill565(const struct linebuf *linebuffer);
+
+
+void dp_imagefill565(const uint8_t *linebuffer);
 
 void dp_fill(unsigned int x, unsigned int y, unsigned int w, unsigned int h,
 		unsigned int rgb444);
