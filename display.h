@@ -72,10 +72,6 @@ void dp_on(void);
 void dp_init(void);
 void dp_uninit(void);
 
-struct linebuf
-{
-	uint8_t buf[320*80];
-};
 
 
 
