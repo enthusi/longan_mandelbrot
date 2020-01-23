@@ -520,6 +520,7 @@ dp_fill666(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsig
 	dp_cs_disable();
 }
 
+__attribute__((noinline))
 void dp_imagefill565(const uint8_t image[2*160*80])
 {
         unsigned int i;

@@ -1,0 +1,112 @@
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+_init:
+ 
+    dma_deinit(DMA0, DMA_CH2);
+    dma_struct_para_init(&dma);
+ 
+    dma.direction = DMA_MEMORY_TO_PERIPHERAL;
+    dma.memory_addr = 0;
+    dma.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
+    dma.memory_width = DMA_MEMORY_WIDTH_16BIT;
+    dma.number = 0;
+    dma.periph_addr = (SPI0 + 0x0CU);
+    dma.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
+    dma.periph_width = DMA_PERIPHERAL_WIDTH_16BIT;
+    dma.priority = DMA_PRIORITY_ULTRA_HIGH;
+    dma_init(DMA0, DMA_CH2, &dma);
+    dma_circulation_disable(DMA0, DMA_CH2);
+    dma_memory_to_memory_disable(DMA0, DMA_CH2);
+    dma_interrupt_enable(DMA0, DMA_CH2, DMA_INT_FTF);
+    eclic_irq_enable(DMA0_Channel2_IRQn, 1, 1);
+ 
+ 
+later..
+ 
+void DMA0_Channel2_IRQHandler(void)
+{
+    if (DMA_INTF(DMA0) & DMA_FLAG_ADD(DMA_INT_FLAG_FTF, DMA_CH2)) {
+        DMA_INTC(DMA0) |= DMA_FLAG_ADD(DMA_INT_FLAG_FTF, DMA_CH2);
+ 
+        DMA_CHCTL(DMA0, DMA_CH2) &= ~DMA_CHXCTL_CHEN;
+        SPI_CTL0(SPI0) &= (uint32_t)(~SPI_CTL0_SPIEN);
+        SPI_CTL1(SPI0) &= (uint32_t)(~SPI_CTL1_DMATEN);
+        SPI_CTL0(SPI0) &= (uint32_t)(~SPI_CTL0_FF16);
+        SPI_CTL0(SPI0) |= (uint32_t)SPI_FRAMESIZE_8BIT;
+        SPI_CTL0(SPI0) |= (uint32_t)SPI_CTL0_SPIEN;
+ 
+        dp_cs_disable();
+    }
+}
+ 
+void dp_imagefill565dma(const uint8_t *image, const int imagesiz)
+{
+        unsigned int i;
+ 
+        dp_cs_enable();
+        dp__mode565();
+        dp__setbox(0, 160, 0, 80);
+ 
+        SPI_CTL0(SPI0) &= (uint32_t)(~SPI_CTL0_SPIEN);
+        DMA_CH2MADDR(DMA0) = (uint32_t)image;
+        DMA_CH2CNT(DMA0) = imagesiz / 2;
+        SPI_CTL0(SPI0) &= (uint32_t)(~SPI_CTL0_FF16);
+        SPI_CTL0(SPI0) |= (uint32_t)SPI_FRAMESIZE_16BIT;
+        SPI_CTL1(SPI0) |= (uint32_t)SPI_CTL1_DMATEN;
+        SPI_CTL0(SPI0) |= (uint32_t)SPI_CTL0_SPIEN;
+        DMA_CHCTL(DMA0, DMA_CH2) |= DMA_CHXCTL_CHEN;
+}

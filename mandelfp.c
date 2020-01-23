@@ -29,10 +29,10 @@ while (1)
     s=s*-1;
 for (z=0;z<200;z++)
 {
-    xmin-=z/10000.0*s;
-    xmax+=z/10000.0*s;
-    ymin-=z/10000.0*s;
-    ymax+=z/10000.0*s;
+    xmin-=z/10000.0f*s;
+    xmax+=z/10000.0f*s;
+    ymin-=z/10000.0f*s;
+    ymax+=z/10000.0f*s;
     xs=(xmax-xmin)/SCREEN_WIDTH;
     ys=(ymax-ymin)/SCREEN_HEIGHT;
    
