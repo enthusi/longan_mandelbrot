@@ -11,10 +11,10 @@
 __attribute__((noinline))
 void mandelfp()
 {
-float xmin=-2.5,ymin=-1.5,xmax=1.5,ymax=1.5,xs,ys;
+float xmin,ymin,xmax,ymax,xs,ys;
 int x0,y0,p,q,xn;
 int i,x,y,z;
-int maxiter = 30;
+const int maxiter = 30;
 
 xmin=-1.26136183;
 xmax=-1.24763480;
@@ -28,7 +28,7 @@ while (1)
 {
     s=s*-1;
 for (z=0;z<200;z++)
-{
+{ 
     xmin-=z/10000.0f*s;
     xmax+=z/10000.0f*s;
     ymin-=z/10000.0f*s;
@@ -48,8 +48,9 @@ for (z=0;z<200;z++)
             while ((mul(xn,xn)+mul(y0,y0))<(4<<FIXSIZE) && ++i<maxiter)  
             {
                 xn=mul((x0+y0),(x0-y0)) +p;           
-                y0=mul(fixpt(2),mul(x0,y0)) +q;
                 x0=xn;
+                y0=mul(fixpt(2),mul(x0,y0)) +q;
+                
             }
             if (i==maxiter) i=1;
             {
