@@ -48,8 +48,9 @@ for (z=0;z<200;z++)
             while ((mul(xn,xn)+mul(y0,y0))<(4<<FIXSIZE) && ++i<maxiter)  
             {
                 xn=mul((x0+y0),(x0-y0)) +p;           
-                x0=xn;
+                
                 y0=mul(fixpt(2),mul(x0,y0)) +q;
+                x0=xn;
                 
             }
             if (i==maxiter) i=1;
