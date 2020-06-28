@@ -1,0 +1,2 @@
+
+int add_asm();
