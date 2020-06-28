@@ -3,6 +3,7 @@
 // code below by Martin Wendt, all else part of gd32vf103inator
 // except for minor additions to display.c/.h -> dp_imagefill565()
 #include "mandelfp.h"
+#include "snip1.h"
 #define FIXSIZE 13
 #define mul(a,b) ((((int)a)*(b))>>FIXSIZE)
 #define fixpt(a) ((int)(((a)*(1<<FIXSIZE))))
@@ -47,7 +48,7 @@ for (z=0;z<200;z++)
             i=0;
             while ((mul(xn,xn)+mul(y0,y0))<(4<<FIXSIZE) && ++i<maxiter)  
             {
-                xn=mul((x0+y0),(x0-y0)) +p;           
+                xn=mul(add_asm(x0,y0),(x0-y0)) +p;           
                 
                 y0=mul(fixpt(2),mul(x0,y0)) +q;
                 x0=xn;
