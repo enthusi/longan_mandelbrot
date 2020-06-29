@@ -80,6 +80,8 @@ mandelfp:
 	.loc 1 22 5
 	sw	a5,16(sp)
 	.loc 1 20 5
+	
+	#this seems to load the constants xmin ...
 	lui	a5,%hi(.LC1)
 	lw	a5,%lo(.LC1)(a5)
 	.loc 1 23 5
@@ -154,8 +156,12 @@ mandelfp:
 	lw	a2,40(sp)
 	lw	a3,44(sp)
 	.loc 1 48 19
+	
+	#s8 is 4<<13 at line 51
 	li	s8,32768
 	.loc 1 48 57
+	
+	#s7 is maxiter
 	li	s7,30
 	.loc 1 32 12
 	call	__divdf3
@@ -318,6 +324,8 @@ mandelfp:
 	.loc 1 47 13
 	.loc 1 48 13
 	.loc 1 46 15 is_stmt 0
+	
+	#-------------------------------
 	li	a5,0
 	.loc 1 48 57
 	li	a1,1
@@ -330,8 +338,10 @@ mandelfp:
 	.loc 1 48 57 discriminator 1
 	addi	a1,a1,1
 .LVL49:
-	beq	a1,s7,.L15
+	beq	a1,s7,.L15  #s7 is max iter
 .LVL50:
+
+
 .L3:
 	.loc 1 50 17 is_stmt 1
 	.loc 1 51 20 is_stmt 0

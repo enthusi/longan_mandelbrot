@@ -4,7 +4,7 @@
 	.attribute unaligned_access, 0
 	.attribute stack_align, 16
 	.text
-	.align	1
+	.align	2
 	.globl	add_asm
 	.type	add_asm, @function
 	
@@ -30,7 +30,7 @@ add_asm:
 	#lw	s0,44(sp) #restore s0
 	
 	#addi	sp,sp,48
-	jr	ra
+	ret#jr	ra
 	
 	
 	.size	add_asm, .-add_asm

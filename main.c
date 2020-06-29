@@ -83,7 +83,7 @@ int main(void)
 
 	}
 	eclic_config(MTIMER_IRQn, ECLIC_ATTR_TRIG_LEVEL, 1);
-	eclic_enable(MTIMER_IRQn);
+	//eclic_enable(MTIMER_IRQn);
 
 	RCU->APB2EN |= RCU_APB2EN_PAEN | RCU_APB2EN_PCEN;
 

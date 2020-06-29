@@ -4,6 +4,7 @@
 // except for minor additions to display.c/.h -> dp_imagefill565()
 #include "mandelfp.h"
 #include "snip1.h"
+#include "myasm.h"
 #define FIXSIZE 13
 #define mul(a,b) ((((int)a)*(b))>>FIXSIZE)
 #define fixpt(a) ((int)(((a)*(1<<FIXSIZE))))
@@ -16,7 +17,8 @@ float xmin,ymin,xmax,ymax,xs,ys;
 int x0,y0,p,q,xn;
 int i,x,y,z;
 const int maxiter = 30;
-
+//all of this below could already
+//perform in fixpt space!
 xmin=-1.26136183;
 xmax=-1.24763480;
 ymin= 0.37648215;
@@ -48,14 +50,17 @@ for (z=0;z<200;z++)
             i=0;
             while ((mul(xn,xn)+mul(y0,y0))<(4<<FIXSIZE) && ++i<maxiter)  
             {
-                xn=mul(add_asm(x0,y0),(x0-y0)) +p;           
-                
+                //xn=mul((x0+y0),(x0-y0)) +p; 
+                //xn=mul(myasm(x0,y0),(x0-y0)) +p;           
+                xn=myasm(x0,y0,p);
+                //xn+=+p;
                 y0=mul(fixpt(2),mul(x0,y0)) +q;
                 x0=xn;
                 
             }
             if (i==maxiter) i=1;
             {
+                //linebuf.buf[y*160+x]=i*111;
                 linebuf.buf[y*160*2+x*2]=i;
                 linebuf.buf[y*160*2+x*2+1]=i*2;
             }  
