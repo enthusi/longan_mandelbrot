@@ -25,7 +25,7 @@ myasm:
     add a3,a0,a1
     sub a1,a0,a1
     mul a0,a1,a3
-	srai a0,a0,13 #BECAUSE: mul(a,b) ((((int)a)*(b))>>FIXSIZE)
+	srai a0,a0,14 #BECAUSE: mul(a,b) ((((int)a)*(b))>>FIXSIZE)
 	add a0,a0,a2
 	
 	#sw	s0,44(sp) #;@backup s0
