@@ -223,13 +223,31 @@ mandelfp:
 # mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
 	blt	t2,a0,.L16	#, tmp173, tmp174,
 	#andi	a3,a3,0xff	# _170, i
-	slli	a5,a3,1	#, tmp176, _170
+	#a3 is i
+	#shift 5+6 and add
+	#shift 6 and add
+	#add
+	
+	#slli	a5,a3,1	#, tmp176, _170
+	andi	a3,a3,0b1111
+	#li a5,0b0000000001 #green
+    #li a5,0b0000010000 #red
+	#li a5,0b1000000000 #blue
+    li a5,0b1000010001 #blue
+	mul a5,a3,a5
+	#add a5,x0,a3
+	#slli a3,a3,5
+	#add a5,a5,a3
+	#slli a3,a3,6
+	#add a5,a5,a3
+	
 	#andi	a5,a5,0xff	# _172, tmp176
 .L4:
 # mandelfp.c:65:                 linebuf.buf[y*160*2+x*2]=i;
-	sb	a3,0(a6)	# _170, MEM[base: _88, offset: 0B]
+	#sb	a3,0(a6)	# _170, MEM[base: _88, offset: 0B]
+	sh  a5,0(a6)
 # mandelfp.c:66:                 linebuf.buf[y*160*2+x*2+1]=i*2;
-	sb	a5,1(a6)	# _172, MEM[base: _88, offset: 1B]
+	#sb	a5,1(a6)	# _172, MEM[base: _88, offset: 1B]
 	addi	a6,a6,2	#, ivtmp.13, ivtmp.13
 	add	a7,a7,t3	# xs, ivtmp.12, ivtmp.12
 # mandelfp.c:45:       for (x=0;x<SCREEN_WIDTH;x++) {                        
