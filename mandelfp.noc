@@ -16,7 +16,7 @@ void mandelfp()
 //float xmin,ymin,xmax,ymax,xs,ys;
 int x0,y0,p,q,xn;
 int i,x,y,z;
-const int maxiter = 64;//6;
+const int maxiter = 300;
 int xs,ys;
 //all of this below could already
 //perform in fixpt space!
@@ -37,13 +37,13 @@ for (z=0;z<200;z++)
     xmax+=z*s;
     ymin-=z*s;
     ymax+=z*s;
-    xs=(xmax-xmin)*32/SCREEN_WIDTH;
-    ys=(ymax-ymin)*32/SCREEN_HEIGHT;
+    int xs=(xmax-xmin)*16/SCREEN_WIDTH;
+    int ys=(ymax-ymin)*16/SCREEN_HEIGHT;
    
     for (y=0;y<SCREEN_HEIGHT;y++) {
-      q= ymin+(y*ys)/32;
+      q= ymin+(y*ys)/16;
       for (x=0;x<SCREEN_WIDTH;x++) {                        
-        p = xmin+(x*xs)/32;
+        p = xmin+(x*xs)/16;
         
             xn=0;
             x0=0;
@@ -59,7 +59,7 @@ for (z=0;z<200;z++)
                 x0=xn;
                 
             }
-            //if (i==maxiter) i=1;
+            if (i==maxiter) i=1;
             {
                 //linebuf.buf[y*160+x]=i*111;
                 linebuf.buf[y*160*2+x*2]=i;

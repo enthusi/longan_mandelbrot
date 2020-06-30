@@ -1,0 +1,249 @@
+	.file	"mandelfp.c"
+	.option nopic
+	.attribute arch, "rv32i2p0_m2p0_a2p0_c2p0"
+	.attribute unaligned_access, 0
+	.attribute stack_align, 16
+# GNU C17 (SiFive GCC 8.3.0-2019.08.0) version 8.3.0 (riscv64-unknown-elf)
+#	compiled by GNU C version 5.4.0 20160609, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.3, isl version isl-0.18-GMP
+
+# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+# options passed:  -imultilib rv32imac/ilp32
+# -iprefix /home/martin/2019/riscv/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../lib/gcc/riscv64-unknown-elf/8.3.0/
+# -isysroot /home/martin/2019/riscv/riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14/bin/../riscv64-unknown-elf
+# mandelfp.c -march=rv32imac -mabi=ilp32 -Os -fverbose-asm
+# options enabled:  -faggressive-loop-optimizations -falign-functions
+# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
+# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
+# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
+# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
+# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
+# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
+# -feliminate-unused-debug-types -fexpensive-optimizations
+# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
+# -fgcse-lm -fgnu-runtime -fgnu-unique -fguess-branch-probability
+# -fhoist-adjacent-loads -fident -fif-conversion -fif-conversion2
+# -findirect-inlining -finline -finline-atomics -finline-functions
+# -finline-functions-called-once -finline-small-functions -fipa-bit-cp
+# -fipa-cp -fipa-icf -fipa-icf-functions -fipa-icf-variables -fipa-profile
+# -fipa-pure-const -fipa-ra -fipa-reference -fipa-sra -fipa-vrp
+# -fira-hoist-pressure -fira-share-save-slots -fira-share-spill-slots
+# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+# -fleading-underscore -flifetime-dse -flra-remat -flto-odr-type-merging
+# -fmath-errno -fmerge-constants -fmerge-debug-strings
+# -fmove-loop-invariants -fomit-frame-pointer -foptimize-sibling-calls
+# -fpartial-inlining -fpeephole -fpeephole2 -fplt -fprefetch-loop-arrays
+# -free -freg-struct-return -freorder-blocks -freorder-functions
+# -frerun-cse-after-loop -fsched-critical-path-heuristic
+# -fsched-dep-count-heuristic -fsched-group-heuristic -fsched-interblock
+# -fsched-last-insn-heuristic -fsched-rank-heuristic -fsched-spec
+# -fsched-spec-insn-heuristic -fsched-stalled-insns-dep -fschedule-fusion
+# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
+# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
+# -fsplit-ivs-in-unroller -fsplit-wide-types -fssa-backprop -fssa-phiopt
+# -fstdarg-opt -fstore-merging -fstrict-aliasing
+# -fstrict-volatile-bitfields -fsync-libcalls -fthread-jumps
+# -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp -ftree-builtin-call-dce
+# -ftree-ccp -ftree-ch -ftree-coalesce-vars -ftree-copy-prop -ftree-cselim
+# -ftree-dce -ftree-dominator-opts -ftree-dse -ftree-forwprop -ftree-fre
+# -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+# -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop -ftree-pre
+# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink -ftree-slsr
+# -ftree-sra -ftree-switch-conversion -ftree-tail-merge -ftree-ter
+# -ftree-vrp -funit-at-a-time -fverbose-asm -fzero-initialized-in-bss -mdiv
+# -mexplicit-relocs -mplt -mriscv-attribute -mstrict-align
+
+	.text
+	.align	1
+	.globl	mandelfp
+	.type	mandelfp, @function
+mandelfp:
+	addi	sp,sp,-1104	#,,
+	li	t1,-24576		#,
+	sw	s0,1096(sp)	#,
+	sw	s1,1092(sp)	#,
+	sw	s3,1084(sp)	#,
+	sw	s4,1080(sp)	#,
+	sw	s7,1068(sp)	#,
+	sw	s8,1064(sp)	#,
+	sw	ra,1100(sp)	#,
+	sw	s2,1088(sp)	#,
+	sw	s5,1076(sp)	#,
+	sw	s6,1072(sp)	#,
+	sw	s9,1060(sp)	#,
+	sw	s10,1056(sp)	#,
+	sw	s11,1052(sp)	#,
+# mandelfp.c:70:     dp_imagefill565(linebuf.buf);
+	li	a5,24576		# tmp192,
+# mandelfp.c:15: {
+	add	sp,sp,t1	#,,
+	li	s4,-24576		# tmp147,
+# mandelfp.c:70:     dp_imagefill565(linebuf.buf);
+	addi	a5,a5,1024	#, tmp191, tmp192
+	addi	a4,sp,16	#, tmp206,
+	addi	s4,s4,-1024	#, tmp146, tmp147
+	add	a5,a5,a4	# tmp206, tmp191, tmp191
+# mandelfp.c:26: int ymax= 6337;//0.38676353;
+	li	s0,8192		# tmp137,
+# mandelfp.c:24: int xmax=-20441;//-1.24763480;
+	li	s1,-20480		# tmp139,
+# mandelfp.c:70:     dp_imagefill565(linebuf.buf);
+	add	a5,a5,s4	# tmp146, tmp186, tmp191
+# mandelfp.c:26: int ymax= 6337;//0.38676353;
+	addi	s7,s0,-1855	#, ymax, tmp137
+# mandelfp.c:24: int xmax=-20441;//-1.24763480;
+	addi	s8,s1,39	#, xmax, tmp139
+# mandelfp.c:27: int s=-1;
+	li	s3,-1		# s,
+# mandelfp.c:25: int ymin= 6168;//0.37648215;
+	addi	s0,s0,-2024	#, ymin, tmp137
+# mandelfp.c:23: int xmin=-20666;//-1.26136183;
+	addi	s1,s1,-186	#, xmin, tmp139
+# mandelfp.c:70:     dp_imagefill565(linebuf.buf);
+	sw	a5,12(sp)	# tmp186, %sfp
+.L8:
+# mandelfp.c:33:     s=s*-1;
+	neg	a5,s3	# s, s
+	sw	a5,4(sp)	# s, %sfp
+	mv	s11,s7	# ymax, ymax
+	mv	s6,s0	# ymin, ymin
+	mv	s10,s8	# xmax, xmax
+	mv	s5,s1	# xmin, xmin
+	li	s2,0		# ivtmp.28,
+	li	s9,200		# ivtmp_72,
+.L7:
+# mandelfp.c:36:     xmin-=z*s;
+	sub	s5,s5,s2	# xmin, xmin, ivtmp.28
+# mandelfp.c:37:     xmax+=z*s;
+	add	s10,s10,s2	# ivtmp.28, xmax, xmax
+# mandelfp.c:40:     xs=(xmax-xmin)*32/SCREEN_WIDTH;
+	li	a5,5		# tmp142,
+# mandelfp.c:38:     ymin-=z*s;
+	sub	s6,s6,s2	# ymin, ymin, ivtmp.28
+# mandelfp.c:39:     ymax+=z*s;
+	add	s11,s11,s2	# ivtmp.28, ymax, ymax
+# mandelfp.c:40:     xs=(xmax-xmin)*32/SCREEN_WIDTH;
+	sub	a7,s10,s5	# tmp141, xmax, xmin
+# mandelfp.c:40:     xs=(xmax-xmin)*32/SCREEN_WIDTH;
+	div	a7,a7,a5	# tmp142, xs, tmp141
+# mandelfp.c:41:     ys=(ymax-ymin)*32/SCREEN_HEIGHT;
+	sub	a5,s11,s6	# tmp143, ymax, ymin
+# mandelfp.c:41:     ys=(ymax-ymin)*32/SCREEN_HEIGHT;
+	li	a4,80		# tmp145,
+# mandelfp.c:41:     ys=(ymax-ymin)*32/SCREEN_HEIGHT;
+	slli	a5,a5,5	#, tmp144, tmp143
+	addi	a3,sp,16	#, tmp205,
+# mandelfp.c:41:     ys=(ymax-ymin)*32/SCREEN_HEIGHT;
+	li	a6,0		# ivtmp.21,
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	li	t0,64		# tmp169,
+# mandelfp.c:45:       for (x=0;x<SCREEN_WIDTH;x++) {                        
+	li	t2,160		# tmp171,
+# mandelfp.c:41:     ys=(ymax-ymin)*32/SCREEN_HEIGHT;
+	div	a5,a5,a4	# tmp145, _109, tmp144
+	li	a4,24576		# tmp196,
+	addi	t6,a4,1024	#, tmp197, tmp198
+	add	t6,t6,a3	# tmp204, tmp197, tmp197
+	sw	a5,8(sp)	# _109, %sfp
+	addi	a5,a4,1024	#, tmp195, tmp196
+	add	a5,a5,a3	# tmp205, tmp195, tmp195
+	add	a1,a5,s4	# tmp146, ivtmp.22, tmp195
+.L6:
+# mandelfp.c:44:       q= ymin+(y*ys)/32;
+	li	a5,32		# tmp199,
+	div	t4,a6,a5	# tmp199, tmp152, ivtmp.21
+# mandelfp.c:44:       q= ymin+(y*ys)/32;
+	mv	a0,a1	# ivtmp.12, ivtmp.22
+	li	t3,0		# ivtmp.11,
+# mandelfp.c:45:       for (x=0;x<SCREEN_WIDTH;x++) {                        
+	li	t1,0		# x,
+# mandelfp.c:44:       q= ymin+(y*ys)/32;
+	add	t4,t4,s6	# ymin, q, tmp152
+.L5:
+# mandelfp.c:46:         p = xmin+(x*xs)/32;
+	li	a5,32		# tmp200,
+	div	t5,t3,a5	# tmp200, tmp155, ivtmp.11
+# mandelfp.c:51:             i=0;
+	li	a4,0		# i,
+# mandelfp.c:50:             y0=0;
+	li	a5,0		# y0,
+# mandelfp.c:49:             x0=0;
+	li	a3,0		# x0,
+# mandelfp.c:46:         p = xmin+(x*xs)/32;
+	add	t5,t5,s5	# xmin, p, tmp155
+.L2:
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	addi	a4,a4,1	#, i, i
+	beq	a4,t0,.L3	#, i, tmp169,
+# mandelfp.c:54:                 xn=mul((x0+y0),(x0-y0)) +p; 
+	sub	ra,a3,a5	# tmp157, x0, y0
+	add	a2,a5,a3	# x0, tmp156, y0
+# mandelfp.c:58:                 y0=mul(32768,mul(x0,y0)) +q;
+	mul	a5,a5,a3	# tmp160, y0, x0
+# mandelfp.c:54:                 xn=mul((x0+y0),(x0-y0)) +p; 
+	mul	a2,a2,ra	# tmp158, tmp156, tmp157
+# mandelfp.c:58:                 y0=mul(32768,mul(x0,y0)) +q;
+	srai	a5,a5,14	#, tmp161, tmp160
+	slli	a5,a5,15	#, tmp162, tmp161
+	srai	a5,a5,14	#, _16, tmp162
+# mandelfp.c:58:                 y0=mul(32768,mul(x0,y0)) +q;
+	add	a5,a5,t4	# q, y0, _16
+# mandelfp.c:54:                 xn=mul((x0+y0),(x0-y0)) +p; 
+	srai	a2,a2,14	#, tmp159, tmp158
+# mandelfp.c:59:                 x0=xn;
+	add	a3,a2,t5	# p, x0, tmp159
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	mul	a2,a3,a3	# tmp163, x0, x0
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	mul	ra,a5,a5	# tmp165, y0, y0
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	srai	a2,a2,14	#, tmp164, tmp163
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	srai	ra,ra,14	#, tmp166, tmp165
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	add	a2,a2,ra	# tmp166, tmp167, tmp164
+# mandelfp.c:52:             while ((mul(xn,xn)+mul(y0,y0))<(65536) && ++i<maxiter)  
+	li	ra,65536		# tmp201,
+	blt	a2,ra,.L2	#, tmp167, tmp201,
+.L3:
+# mandelfp.c:65:                 linebuf.buf[y*160*2+x*2]=i;
+	andi	a4,a4,0xff	# _25, i
+	sb	a4,0(a0)	# _25, MEM[base: _105, offset: 0B]
+# mandelfp.c:66:                 linebuf.buf[y*160*2+x*2+1]=i*2;
+	slli	a4,a4,1	#, tmp170, _25
+	sb	a4,1(a0)	# tmp170, MEM[base: _105, offset: 1B]
+# mandelfp.c:45:       for (x=0;x<SCREEN_WIDTH;x++) {                        
+	addi	t1,t1,1	#, x, x
+	add	t3,t3,a7	# xs, ivtmp.11, ivtmp.11
+	addi	a0,a0,2	#, ivtmp.12, ivtmp.12
+# mandelfp.c:45:       for (x=0;x<SCREEN_WIDTH;x++) {                        
+	bne	t1,t2,.L5	#, x, tmp171,
+	lw	a5,8(sp)		# _109, %sfp
+	addi	a1,a1,320	#, ivtmp.22, ivtmp.22
+	add	a6,a6,a5	# _109, ivtmp.21, ivtmp.21
+# mandelfp.c:43:     for (y=0;y<SCREEN_HEIGHT;y++) {
+	bne	a1,t6,.L6	#, ivtmp.22, _114,
+# mandelfp.c:70:     dp_imagefill565(linebuf.buf);
+	lw	a0,12(sp)		#, %sfp
+	addi	s9,s9,-1	#, ivtmp_72, ivtmp_72
+	sub	s2,s2,s3	# ivtmp.28, ivtmp.28, s
+	call	dp_imagefill565		#
+# mandelfp.c:34: for (z=0;z<200;z++)
+	bne	s9,zero,.L7	#, ivtmp_72,,
+	li	a4,20480		# tmp176,
+	li	a5,-20480		# tmp178,
+	addi	a4,a4,-580	#, tmp175, tmp176
+	addi	a5,a5,580	#, tmp177, tmp178
+	mul	a4,s3,a4	# _79, s, tmp175
+	mul	s3,s3,a5	# _70, s, tmp177
+	add	s1,s1,a4	# _79, xmin, xmin
+	add	s0,s0,a4	# _79, ymin, ymin
+	add	s8,s8,s3	# _70, xmax, xmax
+	add	s7,s7,s3	# _70, ymax, ymax
+# mandelfp.c:33:     s=s*-1;
+	lw	s3,4(sp)		# s, %sfp
+	j	.L8		#
+	.size	mandelfp, .-mandelfp
+	.ident	"GCC: (SiFive GCC 8.3.0-2019.08.0) 8.3.0"

@@ -96,6 +96,7 @@ int main(void)
 
 	dp_init();
     dp_on();
+    //while (1);
     mandelfp();
     return 0;
 }
