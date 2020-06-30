@@ -16,10 +16,10 @@ mandelfp:
 	 add	sp,sp,t0
 	 
 	 
-	 li a1,-20666/2 #xmin -1.26136183
-	 li a2,-20441/2 #xmax -1.24763480
-	 li a3,  6168/2 #ymin 0.37648215
-	 li a4,  6337/2 #ymax 0.38676353
+	 li a1,-20666 #xmin -1.26136183
+	 li a2,-20441 #xmax -1.24763480
+	 li a3,  6168 #ymin 0.37648215
+	 li a4,  6337 #ymax 0.38676353
 	 li a5,  1 #s zoom direction toggle
 	 
 
@@ -70,15 +70,15 @@ innerloop:
      add t0,s10,s11
      sub t1,s10,s11
      mul s9,t0,t1
-     srai s9,s9,13
+     srai s9,s9,14
      add s9,s9,s8
      
      #y0=mul(32768,mul(x0,y0)) +q;
      mul t0,s10,s11
-     srai t0,t0,13
-     li t1,32768/2
+     srai t0,t0,14
+     li t1,32768
      mul s11,t1,t0
-     srai s11,s11,13
+     srai s11,s11,14
      add s11,s11,s7
      
      #x0=xn;
@@ -90,10 +90,10 @@ innerloop:
      mul t1,s11,s11 #y0**2
      #srai t1,t1,14
      add t0,t0,t1
-     srai t0,t0,13
+     srai t0,t0,14
      #OR AFTER ADD? srai t0,t0,14 #this could overflow!!
      
-     li	t1,65536/2		# tmp201,
+     li	t1,65536		# tmp201,
 	 bgt t0,t1, exitloop
      
      add t2,t2,-1
