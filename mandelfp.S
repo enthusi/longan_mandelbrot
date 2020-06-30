@@ -22,9 +22,14 @@ mandelfp:
 	 li a4,  6337/2 #ymax 0.38676353
 	 li a5,  1 #s zoom direction toggle
 	 
-
+     li t3,32768/2
+	 li	t4,268435456#65536/2		# tmp201,
+	 
+	 li t5,1 #dz  step
+	 li a6,0 #z 
 turnloop:	 
-	 li a6,0 #z
+	
+	 
 mainloop:
      
      mul a7, a5, a6 #z*s
@@ -64,7 +69,7 @@ loopx:
      li s10,0#x0
      li s11,0#y0
      
-     li t2,300 #maxiter
+     li t2,64 #maxiter
 innerloop:
      #xn=mul((x0+y0),(x0-y0)) +p;
      add t0,s10,s11
@@ -76,8 +81,9 @@ innerloop:
      #y0=mul(32768,mul(x0,y0)) +q;
      mul t0,s10,s11
      srai t0,t0,13
-     li t1,32768/2
-     mul s11,t1,t0
+     #moved to start
+     #li t3,32768/2
+     mul s11,t3,t0
      srai s11,s11,13
      add s11,s11,s7
      
@@ -90,11 +96,15 @@ innerloop:
      mul t1,s11,s11 #y0**2
      #srai t1,t1,14
      add t0,t0,t1
-     srai t0,t0,13
-     #OR AFTER ADD? srai t0,t0,14 #this could overflow!!
      
-     li	t1,65536/2		# tmp201,
-	 bgt t0,t1, exitloop
+     #we can shift/srai after add
+     #OR: omit it and compare against 65536/2 << 13 in t4 instead!
+     #srai t0,t0,13
+     
+     
+     #moved to start
+     #li	t4,65536/2		# tmp201,
+	 bgt t0,t4, exitloop
      
      add t2,t2,-1
      bne t2,zero,innerloop
@@ -173,15 +183,35 @@ exitloop:
     lw      t1, 72(sp)
     lw      t2, 76(sp)
      addi    sp, sp, 96
-     
+  
+     #in which direction do we go?
+     bgez a5, turn
+     j return
+turn:     
      #keep zooming
-     add a6,a6,1
-     li t0,200
-     bne a6,t0, mainloop
+     add a6,a6,t5
+     add t5,t5, 1
+     li t0,1000
+     blt a6,t0, mainloop
+     j decided
      
+return:
+     sub a6,a6,t5
+     add t5,t5, -1
+     bgez a6, mainloop
+     li a6,0
+     li t5,1
      
-     li t0,-1
-     mul a5,a5,t0
+     j decided
+     
+decided:  
+     #li t0,-1
+     #mul a5,a5,t0
+     li a1,-20666/2 #xmin -1.26136183
+	 li a2,-20441/2 #xmax -1.24763480
+	 li a3,  6168/2 #ymin 0.37648215
+	 li a4,  6337/2 #ymax 0.38676353
+     neg a5,a5
      j turnloop
 
 	  
