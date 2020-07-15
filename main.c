@@ -61,6 +61,15 @@ void MTIMER_IRQHandler(void)
 	MTIMER->mtimecmp_lo = next;
 }
 
+// Simple 'busy loop' delay method.
+__attribute__( ( optimize( "O0" ) ) )
+void delay_cycles( uint32_t cyc ) {
+  uint32_t d_i;
+  for ( d_i = 0; d_i < cyc; ++d_i ) {
+    __asm__( "nop" );
+  }
+}
+
 
 //=================================================================
 int main(void)
@@ -96,6 +105,24 @@ int main(void)
 
 	dp_init();
     dp_on();
+    
+    #define BUTTON GPIO_PB9
+    gpio_pin_set(BUTTON);
+    gpio_pin_config(BUTTON, GPIO_MODE_IN_PULL);
+    
+    gpio_pin_set(LED_BLUE);
+    gpio_pin_clear(LED_BLUE); //clear means on
+    
+    while (1)
+    {
+        
+        if (gpio_pin_get(BUTTON)) gpio_pin_clear(LED_BLUE);
+        else gpio_pin_set(LED_BLUE);
+        //delay_cycles(30000);
+       // gpio_pin_toggle(LED_BLUE);
+    }   
+    
+    
     //while (1);
     mandelfp();
     return 0;
