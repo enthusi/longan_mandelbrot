@@ -61,6 +61,12 @@ void MTIMER_IRQHandler(void)
 	MTIMER->mtimecmp_lo = next;
 }
 
+void delay(volatile uint32_t dly)
+{
+    while(dly--);
+}
+
+
 // Simple 'busy loop' delay method.
 __attribute__( ( optimize( "O0" ) ) )
 void delay_cycles( uint32_t cyc ) {
@@ -106,20 +112,28 @@ int main(void)
 	dp_init();
     dp_on();
     
-    #define BUTTON GPIO_PB9
-    gpio_pin_set(BUTTON);
-    gpio_pin_config(BUTTON, GPIO_MODE_IN_PULL);
-    
     gpio_pin_set(LED_BLUE);
     gpio_pin_clear(LED_BLUE); //clear means on
+    
+    #define BUTTON GPIO_PB9
+    gpio_pin_config(BUTTON, GPIO_MODE_IN_PULL);
+    gpio_pin_set(BUTTON);
+    
     
     while (1)
     {
         
-        if (gpio_pin_get(BUTTON)) gpio_pin_clear(LED_BLUE);
-        else gpio_pin_set(LED_BLUE);
-        //delay_cycles(30000);
-       // gpio_pin_toggle(LED_BLUE);
+        if (gpio_pin_high(BUTTON)) 
+        {
+            gpio_pin_clear(LED_BLUE);
+        }
+        else 
+        {
+            gpio_pin_set(LED_BLUE);
+        }
+        //delay_cycles(1000000);
+        //delay(10000000);
+        //gpio_pin_toggle(LED_BLUE);
     }   
     
     
