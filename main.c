@@ -38,8 +38,11 @@
 #include "LonganNano.h"
 //#include "uart0.h"
 #include "display.h"
-#include "mandelfp.h"
+
+//#include "mandelfp.h"
+
 //#include "term.h"
+#include "mandelframe.h"
 
 extern struct dp_font ter16n;
 extern struct dp_font ter16b;
@@ -115,29 +118,48 @@ int main(void)
     gpio_pin_set(LED_BLUE);
     gpio_pin_clear(LED_BLUE); //clear means on
     
-    #define BUTTON GPIO_PB9
-    gpio_pin_config(BUTTON, GPIO_MODE_IN_PULL);
-    gpio_pin_set(BUTTON);
+    #define BUTTON0 GPIO_PB9
+    #define BUTTON1 GPIO_PB8
+    #define BUTTON2 GPIO_PB7
+    #define BUTTON3 GPIO_PB6
+    #define BUTTON4 GPIO_PB5
     
+    gpio_pin_config(BUTTON0, GPIO_MODE_IN_PULL);
+    gpio_pin_config(BUTTON1, GPIO_MODE_IN_PULL);
+    gpio_pin_config(BUTTON2, GPIO_MODE_IN_PULL);
+    gpio_pin_config(BUTTON3, GPIO_MODE_IN_PULL);
+    gpio_pin_config(BUTTON4, GPIO_MODE_IN_PULL);
+    gpio_pin_set(BUTTON0);
+    gpio_pin_set(BUTTON1);
+    gpio_pin_set(BUTTON2);
+    gpio_pin_set(BUTTON3);
+    gpio_pin_set(BUTTON4);
     
+    int xmin=-20666/2;//-1.26136183;
+    int ymin= 6168/2;//0.37648215;
+    int scale;
+    int stepsize = 100;
     while (1)
     {
         
-        if (gpio_pin_high(BUTTON)) 
-        {
-            gpio_pin_clear(LED_BLUE);
-        }
-        else 
-        {
-            gpio_pin_set(LED_BLUE);
-        }
+        if (!gpio_pin_high(BUTTON4)) scale=3; else scale=1;
+        
+        if (!gpio_pin_high(BUTTON0)) ymin-=stepsize*scale;
+        if (!gpio_pin_high(BUTTON1)) ymin+=stepsize*scale;
+        if (!gpio_pin_high(BUTTON2)) xmin-=stepsize*scale;
+        if (!gpio_pin_high(BUTTON3)) xmin+=stepsize*scale;
+        
+        //    gpio_pin_clear(LED_BLUE);
+        //    gpio_pin_set(LED_BLUE);
+        
         //delay_cycles(1000000);
         //delay(10000000);
         //gpio_pin_toggle(LED_BLUE);
+        mandelframe(xmin, ymin);
     }   
     
     
     //while (1);
-    mandelfp();
+    //mandelfp();
     return 0;
 }
